@@ -61,11 +61,11 @@ public class QueryNumSpeedsOver100 {
                     MyTableReducer.class,    // reducer class
                     job);
             job.setNumReduceTasks(1);   // at least one, adjust as required
-
-            boolean b = job.waitForCompletion(true);
-            if (!b) {
-                throw new IOException("error with job!");
-            }
+            job.submit();
+            //boolean b = job.waitForCompletion(true);
+           // if (!b) {
+            //    throw new IOException("error with job!");
+            //}
             // Setup Hadoop
             /*Configuration conf = HBaseConfiguration.create();
             Job job = Job.getInstance(conf, "PageViewCounts");
