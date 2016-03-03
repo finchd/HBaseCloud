@@ -100,7 +100,7 @@ public class QueryNumSpeedsOver100 {
 
             // Write the results to a file in the output directory
             FileOutputFormat.setOutputPath( job, new Path( "output" ) );
-
+            TableMapReduceUtil.addDependencyJars(job);
             // Execute the job
             System.exit( job.waitForCompletion( true ) ? 0 : 1 );
 
