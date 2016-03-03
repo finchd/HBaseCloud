@@ -46,6 +46,7 @@ public class QueryNumSpeedsOver100 {
 
         try
         {
+            /*
             Configuration conf = HBaseConfiguration.create();
             HTable table = new HTable(conf, "highways");
             Scan scan = new Scan();
@@ -68,18 +69,18 @@ public class QueryNumSpeedsOver100 {
                 theResult += qualifier + ": " + value + "| ";
                 //System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
             }
-
+            */
 
             //create Map by result and print it
             //Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
             //getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
-            /*Configuration config = HBaseConfiguration.create();
+            Configuration config = HBaseConfiguration.create();
             Job job = Job.getInstance(config, "PageViewCounts");
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
 
             Scan scan = new Scan();
-            //scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
-            //scan.setCacheBlocks(false);  // don't set to true for MR jobs
+            scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
+            scan.setCacheBlocks(false);  // don't set to true for MR jobs
             // set other scan attrs
 
             TableMapReduceUtil.initTableMapperJob(
@@ -93,15 +94,27 @@ public class QueryNumSpeedsOver100 {
                     "results",        // output table
                     MyTableReducer.class,    // reducer class
                     job);
-            job.setNumReduceTasks(1);   // at least one, adjust as required
+            job.setNumReduceTasks(1);// at least one, adjust as required
 
-            job.submit();
-            //boolean b = job.waitForCompletion(true);
-           // if (!b) {
-            //    throw new IOException("error with job!");
-            //}
+            TableMapReduceUtil.addDependencyJars(job);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.util.Bytes.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.mapreduce.TableReducer.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.io.ImmutableBytesWritable.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.mapreduce.TableMapper.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.io.IntWritable.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.io.LongWritable.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.mapreduce.Job.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.mapreduce.Mapper.class);
+            TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.mapreduce.Reducer.class);
+
+            //job.submit();
+            boolean b = job.waitForCompletion(true);
+            if (!b) {
+                throw new IOException("error with job!");
+            }
             // Setup Hadoop
-            */
+
             //Configuration conf = HBaseConfiguration.create();
             /*Job job = Job.getInstance(conf, "PageViewCounts");
             job.setJarByClass( QueryNumSpeedsOver100.class );
