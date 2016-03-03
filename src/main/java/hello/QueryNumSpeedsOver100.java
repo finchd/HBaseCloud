@@ -1,6 +1,8 @@
 package hello;
 import org.apache.hadoop.conf.Configuration;
 
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 //import org.apache.hadoop.hbase.client.HTable;
 //import org.apache.hadoop.hbase.client.HTableInterface;
@@ -31,6 +33,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * Created by Sean on 2/21/2016.
  */
@@ -40,6 +45,31 @@ public class QueryNumSpeedsOver100 {
 
         try
         {
+            Configuration conf = HBaseConfiguration.create();
+            HTable table = new HTable(conf, "highways");
+            Scan scan = new Scan();
+            //scan.setCaching(20);
+            //scan.addFamily(Bytes.toBytes("highways"));
+
+            //esultScanner scanner = table.getScanner(scan);
+
+            Get theGet = new Get(Bytes.toBytes("1"));
+            Result result = table.get(theGet);
+            //get value first column
+            String inValue1 = Bytes.toString(result.value());
+            //get value by ColumnFamily and ColumnName
+            byte[] inValueByte = result.getValue(Bytes.toBytes("highways"), Bytes.toBytes("highwayid"));
+            String inValue2 = Bytes.toString(inValueByte);
+
+            for (Cell cell : result.listCells()) {
+                String qualifier = Bytes.toString(CellUtil.cloneQualifier(cell));
+                String value = Bytes.toString(CellUtil.cloneValue(cell));
+                System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
+            }
+
+            //create Map by result and print it
+            Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
+            getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
             /*Configuration config = HBaseConfiguration.create();
             Job job = Job.getInstance(config, "PageViewCounts");
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
@@ -69,8 +99,8 @@ public class QueryNumSpeedsOver100 {
             //}
             // Setup Hadoop
             */
-            Configuration conf = HBaseConfiguration.create();
-            Job job = Job.getInstance(conf, "PageViewCounts");
+            //Configuration conf = HBaseConfiguration.create();
+            /*Job job = Job.getInstance(conf, "PageViewCounts");
             job.setJarByClass( QueryNumSpeedsOver100.class );
 
             // Create a scan
@@ -103,7 +133,7 @@ public class QueryNumSpeedsOver100 {
             TableMapReduceUtil.addDependencyJars(job);
             // Execute the job
             System.exit( job.waitForCompletion( true ) ? 0 : 1 );
-
+        */
         }
         catch( Exception e )
         {
