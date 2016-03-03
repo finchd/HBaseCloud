@@ -41,7 +41,7 @@ public class QueryNumSpeedsOver100 {
         try
         {
             Configuration config = HBaseConfiguration.create();
-            Job job = new Job(config,"ExampleSummary");
+            Job job = Job.getInstance(config, "PageViewCounts");
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
 
             Scan scan = new Scan();
