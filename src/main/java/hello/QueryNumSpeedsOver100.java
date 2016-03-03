@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
 public class QueryNumSpeedsOver100 {
     public String getResult(){
         //return "Query 1 result";
+        String theResult = "";
 
         try
         {
@@ -56,16 +57,18 @@ public class QueryNumSpeedsOver100 {
             Get theGet = new Get(Bytes.toBytes("1"));
             Result result = table.get(theGet);
             //get value first column
-            String inValue1 = Bytes.toString(result.value());
+            //String inValue1 = Bytes.toString(result.value());
             //get value by ColumnFamily and ColumnName
-            byte[] inValueByte = result.getValue(Bytes.toBytes("highways"), Bytes.toBytes("highwayid"));
-            String inValue2 = Bytes.toString(inValueByte);
+            //byte[] inValueByte = result.getValue(Bytes.toBytes("highways"), Bytes.toBytes("highwayid"));
+           // String inValue2 = Bytes.toString(inValueByte);
 
             for (Cell cell : result.listCells()) {
                 String qualifier = Bytes.toString(CellUtil.cloneQualifier(cell));
                 String value = Bytes.toString(CellUtil.cloneValue(cell));
-                System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
+                theResult += qualifier + ": " + value + "| ";
+                //System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
             }
+
 
             //create Map by result and print it
             //Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
@@ -140,7 +143,7 @@ public class QueryNumSpeedsOver100 {
             e.printStackTrace();
         }
 
-        return "stored in results table";
+        return theResult;
     }
 
     public static class MyMapper1 extends TableMapper<Text, IntWritable>  {
