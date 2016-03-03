@@ -68,8 +68,8 @@ public class QueryNumSpeedsOver100 {
             }
 
             //create Map by result and print it
-            Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
-            getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
+            //Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
+            //getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
             /*Configuration config = HBaseConfiguration.create();
             Job job = Job.getInstance(config, "PageViewCounts");
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
