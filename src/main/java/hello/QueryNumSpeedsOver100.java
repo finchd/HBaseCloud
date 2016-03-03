@@ -45,8 +45,8 @@ public class QueryNumSpeedsOver100 {
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
 
             Scan scan = new Scan();
-            scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
-            scan.setCacheBlocks(false);  // don't set to true for MR jobs
+            //scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
+            //scan.setCacheBlocks(false);  // don't set to true for MR jobs
             // set other scan attrs
 
             TableMapReduceUtil.initTableMapperJob(
@@ -61,6 +61,7 @@ public class QueryNumSpeedsOver100 {
                     MyTableReducer.class,    // reducer class
                     job);
             job.setNumReduceTasks(1);   // at least one, adjust as required
+
             job.submit();
             //boolean b = job.waitForCompletion(true);
            // if (!b) {
