@@ -38,7 +38,7 @@ public class HelloControllerTest {
 	public void getQuery1() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query1/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("Query 1 result")));
+				.andExpect(content().string(equalTo("stored in results table")));
 	}
 	@Test
 	public void getQuery2() throws Exception {
