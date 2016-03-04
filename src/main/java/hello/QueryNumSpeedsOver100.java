@@ -3,13 +3,13 @@ import org.apache.hadoop.conf.Configuration;
 
 //import org.apache.hadoop.hbase.Cell;
 //import org.apache.hadoop.hbase.CellUtil;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 //import org.apache.hadoop.hbase.client.HTable;
 //import org.apache.hadoop.hbase.client.HTableInterface;
 //import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.mapreduce.TableReducer;
 import org.apache.hadoop.hbase.util.Bytes;
 
@@ -49,14 +49,14 @@ public class QueryNumSpeedsOver100 {
 
         try
         {
-            /*
+
             Configuration conf = HBaseConfiguration.create();
             HTable table = new HTable(conf, "highways");
             Scan scan = new Scan();
             //scan.setCaching(20);
             //scan.addFamily(Bytes.toBytes("highways"));
 
-            //esultScanner scanner = table.getScanner(scan);
+            //resultScanner scanner = table.getScanner(scan);
 
             Get theGet = new Get(Bytes.toBytes("1"));
             Result result = table.get(theGet);
@@ -72,8 +72,8 @@ public class QueryNumSpeedsOver100 {
                 theResult += qualifier + ": " + value + "| ";
                 //System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
             }
-            */
 
+            /*
             //create Map by result and print it
             //Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
             //getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
