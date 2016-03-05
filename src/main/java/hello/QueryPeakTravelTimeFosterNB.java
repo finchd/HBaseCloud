@@ -11,8 +11,8 @@ public class QueryPeakTravelTimeFosterNB {
         // Reduce: sums speed, then average by dividing by station length
 
 
-        Configuration conf = HBaseConfiguration.create();
-        HTable table = new HTable(conf, "highways"); // TODO: change table to results from MapReduce job
+        //Configuration conf = HBaseConfiguration.create();
+        //HTable table = new HTable(conf, "highways"); // TODO: change table to results from MapReduce job
         //Scan scan = new Scan();
 
         // Here, just query output table from MapReduce, and post-process (ie sorting)
