@@ -49,7 +49,7 @@ public class QueryNumSpeedsOver100 {
 
         try
         {
-
+            /*
             Configuration conf = HBaseConfiguration.create();
             HTable table = new HTable(conf, "highways");
             Scan scan = new Scan();
@@ -73,10 +73,12 @@ public class QueryNumSpeedsOver100 {
                 //System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
             }
 
-            /*
+
             //create Map by result and print it
             //Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
             //getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
+
+            */
             Configuration config = HBaseConfiguration.create();
             Job job = Job.getInstance(config, "PageViewCounts");
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
@@ -100,6 +102,7 @@ public class QueryNumSpeedsOver100 {
             job.setNumReduceTasks(1);// at least one, adjust as required
 
             TableMapReduceUtil.addDependencyJars(job);
+            /*
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.util.Bytes.class);
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.mapreduce.TableReducer.class);
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.io.ImmutableBytesWritable.class);
@@ -113,16 +116,17 @@ public class QueryNumSpeedsOver100 {
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.client.Put.class);
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.client.Result.class);
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.client.Scan.class);
-
+            */
             //job.submit();
             boolean b = job.waitForCompletion(true);
             if (!b) {
                 throw new IOException("error with job!");
             }
+            /*
             // Setup Hadoop
 
             //Configuration conf = HBaseConfiguration.create();
-            /*Job job = Job.getInstance(conf, "PageViewCounts");
+            Job job = Job.getInstance(conf, "PageViewCounts");
             job.setJarByClass( QueryNumSpeedsOver100.class );
 
             // Create a scan
@@ -162,10 +166,10 @@ public class QueryNumSpeedsOver100 {
             e.printStackTrace();
         }
 
-        return theResult;
+        return "success!";
     }
 
-    public static class MyMapper1 extends TableMapper<Text, IntWritable>  {
+    public static class MyMapper1 extends TableMapper<Text, IntWritable> {
         public static final byte[] CF = "freeway_loopdata".getBytes();
         public static final byte[] ATTR1 = "speed".getBytes();
 
@@ -173,18 +177,25 @@ public class QueryNumSpeedsOver100 {
         private Text text = new Text();
 
         public void map(ImmutableBytesWritable row, Result value, Context context) throws IOException, InterruptedException {
-            String val = new String(value.getValue(CF, ATTR1));
-            Integer speed = Integer.getInteger(val);
 
-            if (speed > 100){
-                text.set("Speeds Over 100:");
-                context.write(text, ONE);
+            String val = Bytes.toString(value.getValue(CF, ATTR1));
+
+            if (!val.isEmpty() && !val.equals("speed")) {
+                Integer speed = Integer.parseInt(val);
+                if (speed > 100) {
+                    text.set("Speeds over 100:");
+                    context.write(text, ONE);
+                }
+
             }
+            //}
+
+
         }
     }
 
     public static class MyTableReducer extends TableReducer<Text, IntWritable, ImmutableBytesWritable> {
-        public static final byte[] CF = "Results".getBytes();
+        public static final byte[] CF = "results".getBytes();
         public static final byte[] COUNT = "count".getBytes();
 
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
@@ -192,8 +203,11 @@ public class QueryNumSpeedsOver100 {
             for (IntWritable val : values) {
                 i += val.get();
             }
+
+            Integer iv = i;
+            String val = iv.toString();
             Put put = new Put(Bytes.toBytes(key.toString()));
-            put.add(CF, COUNT, Bytes.toBytes(i));
+            put.add(CF, COUNT, Bytes.toBytes(val));
 
             context.write(null, put);
         }
