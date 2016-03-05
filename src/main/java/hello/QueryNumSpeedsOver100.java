@@ -49,16 +49,16 @@ public class QueryNumSpeedsOver100 {
 
         try
         {
-            /*
+
             Configuration conf = HBaseConfiguration.create();
-            HTable table = new HTable(conf, "highways");
+            HTable table = new HTable(conf, "results");
             Scan scan = new Scan();
             //scan.setCaching(20);
             //scan.addFamily(Bytes.toBytes("highways"));
 
             //resultScanner scanner = table.getScanner(scan);
 
-            Get theGet = new Get(Bytes.toBytes("1"));
+            Get theGet = new Get(Bytes.toBytes("Speeds over 100:"));
             Result result = table.get(theGet);
             //get value first column
             //String inValue1 = Bytes.toString(result.value());
@@ -73,12 +73,12 @@ public class QueryNumSpeedsOver100 {
                 //System.out.printf("Qualifier : %s : Value : %s", qualifier, value);
             }
 
-
+            /*
             //create Map by result and print it
             //Map<String, String> getResult =  result.listCells().stream().collect(Collectors.toMap(e -> Bytes.toString(CellUtil.cloneQualifier(e)), e -> Bytes.toString(CellUtil.cloneValue(e))));
             //getResult.entrySet().stream().forEach(e-> System.out.printf("Qualifier : %s : Value : %s", e.getKey(), e.getValue()));
 
-            */
+
             Configuration config = HBaseConfiguration.create();
             Job job = Job.getInstance(config, "PageViewCounts");
             job.setJarByClass(QueryNumSpeedsOver100.class);     // class that contains mapper and reducer
@@ -116,12 +116,13 @@ public class QueryNumSpeedsOver100 {
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.client.Put.class);
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.client.Result.class);
             TableMapReduceUtil.addDependencyJars(job.getConfiguration(), org.apache.hadoop.hbase.client.Scan.class);
-            */
+
             //job.submit();
             boolean b = job.waitForCompletion(true);
             if (!b) {
                 throw new IOException("error with job!");
             }
+            */
             /*
             // Setup Hadoop
 
@@ -166,7 +167,7 @@ public class QueryNumSpeedsOver100 {
             e.printStackTrace();
         }
 
-        return "success!";
+        return theResult;
     }
 
     public static class MyMapper1 extends TableMapper<Text, IntWritable> {
