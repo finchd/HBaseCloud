@@ -35,15 +35,16 @@ public class QueryRouteJohnsonCreekToColumbia {
         {
             Result tableResult;
             do {
+                System.out.println("Step1");
                 Get theGet = new Get(Bytes.toBytes(nextStation.getKey()));
                 tableResult = table.get(theGet);
                 if (tableResult.isEmpty()) {
                     theResult = "No route found.";
                     return theResult;
                 }
-
+                System.out.println("Step2");
                 nextStation = getNextStationIdFromDownstream(Integer.parseInt(startingStation.getKey()));
-
+                System.out.println("Step3");
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
@@ -60,6 +61,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 else {
                     theResult = theResult + "\n" + nextStation.getKey() + nextStation.getValue() + "\n";
                 }
+                System.out.println("Step4");
+                System.out.println(theResult);
             } while (!tableResult.isEmpty() && Integer.parseInt(nextStation.getKey()) != 0);
         }
         catch( Exception e )
