@@ -51,11 +51,15 @@ public class QueryNumSpeedsOver100 {
             HTable table = new HTable(conf, "results");
             Get theGet = new Get(Bytes.toBytes("Speeds over 100:"));
             Result result = table.get(theGet);
-            theResult = "Speeds over 100: ";
-            for (Cell cell: result.listCells()){
+            theResult = "Speeds over 100: " + Bytes.toString(result.getValue(Bytes.toBytes("results"), Bytes.toBytes("speed")));
+
+
+            //for (Cell cell: result.listCells()){
                 //if(Bytes.toString(CellUtil.cloneQualifier(cell)).equals("speed")){
-                theResult += Bytes.toString(CellUtil.cloneValue(cell));
-            }
+                 //   theResult += Bytes.toString(CellUtil.cloneValue(cell));
+               // }
+
+            //}
 
         }
         catch( Exception e )
