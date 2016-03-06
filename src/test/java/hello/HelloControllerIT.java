@@ -43,7 +43,7 @@ public class HelloControllerIT {
 	@Test
 	public void getQuery1() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(base.toString()  + "query1/", String.class);
-		assertThat(response.getBody(), equalTo("stored in results table"));
+		assertThat(response.getBody(), equalTo("Speeds over 100: 6972"));
 	}
 	@Test
 	public void getQuery2() throws Exception {
