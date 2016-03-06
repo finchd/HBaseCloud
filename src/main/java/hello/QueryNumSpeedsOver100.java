@@ -64,7 +64,7 @@ public class QueryNumSpeedsOver100 {
             double percentOver106 = over106 / (double) totalSpeedRecords * 100;
 
             String lineBreak = "<br>";
-            theResult += "<h1>Speeders on I205<h1>";
+            theResult += "<h1>Speeders on I205</h1>";
             theResult += lineBreak;
             theResult += "Speeds over 70: " + over70 + "\tPercentage of total: " + round(percentOver70, 4) + "%";
             theResult += lineBreak;

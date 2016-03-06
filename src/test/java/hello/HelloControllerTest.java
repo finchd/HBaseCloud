@@ -38,7 +38,7 @@ public class HelloControllerTest {
 	public void getQuery1() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query1/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("<h1>Speeders on I205<h1><br>Speeds over 70: 484173\tPercentage of total: 3.4438%<br>Speeds over 80: 99708\tPercentage of total: 0.7092%<br>Speeds over 90: 30821\tPercentage of total: 0.2192%<br>Speeds over 100: 6972\tPercentage of total: 0.0496%<br>Speeds over 102: 5533\tPercentage of total: 0.0394%<br>Speeds over 104: 2728\tPercentage of total: 0.0194%<br>Speeds over 106: 279\tPercentage of total: 0.002%<br><br>Avg speed: 41.0 Total speed records 14059453")));
+				.andExpect(content().string(equalTo("<h1>Speeders on I205</h1><br>Speeds over 70: 484173\tPercentage of total: 3.4438%<br>Speeds over 80: 99708\tPercentage of total: 0.7092%<br>Speeds over 90: 30821\tPercentage of total: 0.2192%<br>Speeds over 100: 6972\tPercentage of total: 0.0496%<br>Speeds over 102: 5533\tPercentage of total: 0.0394%<br>Speeds over 104: 2728\tPercentage of total: 0.0194%<br>Speeds over 106: 279\tPercentage of total: 0.002%<br><br>Avg speed: 41.0 Total speed records 14059453")));
 	}
 	@Test
 	public void getQuery2() throws Exception {
