@@ -12,10 +12,7 @@ public class QueryRouteJohnsonCreekToColumbia {
     private final static String startingLocationText = "Johnson Cr NB";
     private final static String endingLocationText = "Columbia to I-205 NB";
     private final static int lowestNorthBoundStationId = 1045;
-    private final static int lowestSouthBoundStationId = 1040;
     private HTable table;
-    private String theResult = "";
-    private Pair<String, String> startingStation;
     private Pair<String, String> endingStation;
     private Pair<String, String> nextStation;
     private Pair<String, String> currentStation;
@@ -30,21 +27,24 @@ public class QueryRouteJohnsonCreekToColumbia {
      */
     public String getResult(){
         initHBaseQuery();
-        theResult = initRouteFindQuery();
+        initRouteFindQuery();
+        String theResult = "";
+
         try
         {
             Result tableResult;
             do {
-                System.out.println("Step1");
+
                 Get theGet = new Get(Bytes.toBytes(nextStation.getKey()));
                 tableResult = table.get(theGet);
+
                 if (tableResult.isEmpty()) {
                     theResult = "No route found.";
                     return theResult;
                 }
-                System.out.println("Step2");
+
                 nextStation = getNextStationIdFromDownstream(Integer.parseInt(currentStation.getKey()));
-                System.out.println("Step3");
+
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
@@ -62,8 +62,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                     theResult = theResult + "\n" + nextStation.getKey() + nextStation.getValue() + "\n";
                     currentStation = nextStation;
                 }
-                System.out.println("Step4");
-                System.out.println(theResult);
+
             } while (!tableResult.isEmpty() && Integer.parseInt(nextStation.getKey()) != 0);
         }
         catch( Exception e )
@@ -99,34 +98,14 @@ public class QueryRouteJohnsonCreekToColumbia {
      * set the startingStation and endingStation variables, which will be used
      * throughout the main routine.  Initialize the first nextStation variable.
      */
-    public String initRouteFindQuery() {
+    public void initRouteFindQuery() {
         // Setup the query:
         // Get the <stationid, locationtext> pairs corresponding to our starting and ending
         // locationtext, and the first downstream after the startingStation
-        startingStation = getStationIdFromLocationText(startingLocationText);
+        Pair<String, String> startingStation = getStationIdFromLocationText(startingLocationText);
         currentStation = startingStation;
-        if (startingStation.getKey() != null) {
-            theResult = theResult + "\n" + startingStation.getKey() + startingStation.getValue() + "\n";
-        }
         endingStation = getStationIdFromLocationText(endingLocationText);
         nextStation = getNextStationIdFromDownstream(Integer.parseInt(startingStation.getKey()));
-        // matches endingStation.  return result
-        if (nextStation.getKey().equals(endingStation.getKey())) {
-
-            theResult = theResult + "\n" + nextStation.getKey() + nextStation.getValue() + "\n";
-            return theResult;
-
-        }
-        // nextStation = 0; no route found.
-        else if (Integer.parseInt(nextStation.getKey()) == 0) {
-            theResult = "No route found.";
-            return theResult;
-        }
-        // add intermediate station result to theResult string
-        else {
-            theResult = theResult + "\n" + nextStation.getKey() + nextStation.getValue() + "\n";
-        }
-        return theResult;
     }
 
     /**
@@ -169,6 +148,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                 // Search sequentially, starting from the lowestNorthBoundStationId
                 Get theGet = new Get(Bytes.toBytes(String.valueOf(stationId)));
                 result = table.get(theGet);
+
                 if (result != null) {
                     // Get the locationtext
                     byte[] locationtextByte = result.getValue(Bytes.toBytes("freeway_stations"), Bytes.toBytes("locationtext"));
@@ -188,6 +168,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                         station = new Pair<>(stationidRead, locationtextRead);
                         return station;
                     }
+
                     // Get the next downstream stationId for next iteration
                     stationId = Integer.parseInt(downstreamRead);
                 }
@@ -196,6 +177,7 @@ public class QueryRouteJohnsonCreekToColumbia {
         catch (java.io.IOException e) {
             e.printStackTrace();
         }
+
         return new Pair<>(null, null);
     }
 
@@ -206,9 +188,9 @@ public class QueryRouteJohnsonCreekToColumbia {
      */
     public Pair<String,String> getNextStationIdFromDownstream(int downstream) {
         Result result = null;
-        Pair returnResult;
         String locationtextRead = null;
         String downstreamRead = null;
+
         try {
             Get theGet = new Get(Bytes.toBytes(String.valueOf(downstream)));
             result = table.get(theGet);
@@ -216,6 +198,7 @@ public class QueryRouteJohnsonCreekToColumbia {
         catch (java.io.IOException e) {
             e.printStackTrace();
         }
+
         if (result != null) {
             // Get the next downstream's locationtext
             byte[] locationtextByte = result.getValue(Bytes.toBytes("freeway_stations"), Bytes.toBytes("locationtext"));
@@ -225,6 +208,7 @@ public class QueryRouteJohnsonCreekToColumbia {
             downstreamRead = Bytes.toString(downstreamByte);
 
         }
+
         return new Pair<>(downstreamRead, locationtextRead);
     }
 
