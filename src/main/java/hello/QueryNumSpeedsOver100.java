@@ -44,11 +44,6 @@ public class QueryNumSpeedsOver100 {
             Result result106 = table.get(theGet106);
             System.out.println("Step8");
             int over106 = Integer.parseInt(Bytes.toString(result106.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
-            System.out.println("Step9");
-            Get theGet108 = new Get(Bytes.toBytes("Speeds over 108:"));
-            Result result108 = table.get(theGet108);
-            int over108 = Integer.parseInt(Bytes.toString(result108.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
-            System.out.println("Step10");
             Get theGetTotalSpeed = new Get(Bytes.toBytes("Total Speed:"));
             Result resultTotalSpeed = table.get(theGetTotalSpeed);
             int totalSpeed = Integer.parseInt(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
@@ -66,7 +61,7 @@ public class QueryNumSpeedsOver100 {
             double percentOver102 = over102/(double)totalSpeedRecords * 100;
             double percentOver104 = over104/(double)totalSpeedRecords * 100;
             double percentOver106 = over106/(double)totalSpeedRecords * 100;
-            double percentOver108 = over108/(double)totalSpeedRecords * 100;
+
             String lineBreak = "<br>";
 
             theResult = "Speeds over 70: " + over70 + " percentage of total: " + percentOver70 + "%";
@@ -83,7 +78,6 @@ public class QueryNumSpeedsOver100 {
             theResult += lineBreak;
             theResult += "Speeds over 106: " + over106 + " percentage of total: " + percentOver106  + "%";
             theResult += lineBreak;
-            theResult += "Speeds over 108: " + over108 + " percentage of total: " + percentOver108 + "%";
             theResult += lineBreak;
             theResult += "Avg speed: " + avgSpeed + " Total speed records " + totalSpeedRecords;
 
