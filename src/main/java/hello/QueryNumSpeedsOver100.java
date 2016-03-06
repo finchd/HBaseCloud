@@ -53,9 +53,8 @@ public class QueryNumSpeedsOver100 {
             Result result = table.get(theGet);
             theResult = "Speeds over 100: ";
             for (Cell cell: result.listCells()){
-                if(Bytes.toString(CellUtil.cloneQualifier(cell)).equals("speed")){
-                    theResult += Bytes.toString(CellUtil.cloneValue(cell));
-                }
+                //if(Bytes.toString(CellUtil.cloneQualifier(cell)).equals("speed")){
+                theResult += Bytes.toString(CellUtil.cloneValue(cell));
             }
 
         }
