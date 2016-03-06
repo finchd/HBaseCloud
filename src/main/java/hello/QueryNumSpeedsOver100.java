@@ -15,37 +15,48 @@ public class QueryNumSpeedsOver100 {
         {
             Configuration conf = HBaseConfiguration.create();
             HTable table = new HTable(conf, "results");
-
+            System.out.println("Step1");
             Get theGet70 = new Get(Bytes.toBytes("Speeds over 70:"));
             Result result70 = table.get(theGet70);
             int over70 = Integer.parseInt(Bytes.toString(result70.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step2");
             Get theGet80 = new Get(Bytes.toBytes("Speeds over 80:"));
             Result result80 = table.get(theGet80);
             int over80 = Integer.parseInt(Bytes.toString(result80.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step3");
             Get theGet90 = new Get(Bytes.toBytes("Speeds over 90:"));
             Result result90 = table.get(theGet90);
             int over90 = Integer.parseInt(Bytes.toString(result90.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step4");
             Get theGet100 = new Get(Bytes.toBytes("Speeds over 100:"));
             Result result100 = table.get(theGet100);
             int over100 = Integer.parseInt(Bytes.toString(result100.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step5");
             Get theGet102 = new Get(Bytes.toBytes("Speeds over 102:"));
             Result result102 = table.get(theGet102);
             int over102 = Integer.parseInt(Bytes.toString(result102.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step6");
             Get theGet104 = new Get(Bytes.toBytes("Speeds over 104:"));
             Result result104 = table.get(theGet104);
+            System.out.println("Step7");
             int over104 = Integer.parseInt(Bytes.toString(result104.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
             Get theGet106 = new Get(Bytes.toBytes("Speeds over 106:"));
             Result result106 = table.get(theGet106);
+            System.out.println("Step8");
             int over106 = Integer.parseInt(Bytes.toString(result106.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step9");
             Get theGet108 = new Get(Bytes.toBytes("Speeds over 108:"));
             Result result108 = table.get(theGet108);
             int over108 = Integer.parseInt(Bytes.toString(result108.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step10");
             Get theGetTotalSpeed = new Get(Bytes.toBytes("Total Speed:"));
             Result resultTotalSpeed = table.get(theGetTotalSpeed);
             int totalSpeed = Integer.parseInt(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step11");
             Get theGetTotalRecords = new Get(Bytes.toBytes("Total speed records"));
             Result resultTotalRecords = table.get(theGetTotalRecords);
             int totalSpeedRecords = Integer.parseInt(Bytes.toString(resultTotalRecords.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            System.out.println("Step12");
 
             double avgSpeed = totalSpeed/totalSpeedRecords;
             double percentOver70 = over70/(double)totalSpeedRecords * 100;
@@ -57,6 +68,7 @@ public class QueryNumSpeedsOver100 {
             double percentOver106 = over106/(double)totalSpeedRecords * 100;
             double percentOver108 = over108/(double)totalSpeedRecords * 100;
             String lineBreak = "<br>";
+
             theResult = "Speeds over 70: " + over70 + " percentage of total: " + percentOver70 + "%";
             theResult += lineBreak;
             theResult += "Speeds over 80: " + over80 + " percentage of total: " + percentOver80 + "%";
