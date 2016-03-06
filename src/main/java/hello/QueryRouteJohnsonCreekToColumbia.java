@@ -18,7 +18,7 @@ public class QueryRouteJohnsonCreekToColumbia {
     private Pair<String, String> startingStation;
     private Pair<String, String> endingStation;
     private Pair<String, String> nextStation;
-
+    private Pair<String, String> currentStation;
     /**
      * The main routine for this query.
      * Loop on the downstream stationids until we hit our stopping conditions:
@@ -43,7 +43,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                     return theResult;
                 }
                 System.out.println("Step2");
-                nextStation = getNextStationIdFromDownstream(Integer.parseInt(startingStation.getKey()));
+                nextStation = getNextStationIdFromDownstream(Integer.parseInt(currentStation.getKey()));
                 System.out.println("Step3");
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
@@ -60,6 +60,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                 // add intermediate station result to theResult string
                 else {
                     theResult = theResult + "\n" + nextStation.getKey() + nextStation.getValue() + "\n";
+                    currentStation = nextStation;
                 }
                 System.out.println("Step4");
                 System.out.println(theResult);
@@ -103,6 +104,7 @@ public class QueryRouteJohnsonCreekToColumbia {
         // Get the <stationid, locationtext> pairs corresponding to our starting and ending
         // locationtext, and the first downstream after the startingStation
         startingStation = getStationIdFromLocationText(startingLocationText);
+        currentStation = startingStation;
         if (startingStation.getKey() != null) {
             theResult = theResult + "\n" + startingStation.getKey() + startingStation.getValue() + "\n";
         }
