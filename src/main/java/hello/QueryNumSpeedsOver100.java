@@ -18,6 +18,14 @@ public class QueryNumSpeedsOver100 {
             Configuration conf = HBaseConfiguration.create();
             HTable table = new HTable(conf, "results");
 
+            Get theGet50 = new Get(Bytes.toBytes("Speeds over 50:"));
+            Result result50 = table.get(theGet50);
+            int over50 = Integer.parseInt(Bytes.toString(result50.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            Get theGet60 = new Get(Bytes.toBytes("Speeds over 60:"));
+            Result result60 = table.get(theGet60);
+            int over60 = Integer.parseInt(Bytes.toString(result60.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
             Get theGet70 = new Get(Bytes.toBytes("Speeds over 70:"));
             Result result70 = table.get(theGet70);
             int over70 = Integer.parseInt(Bytes.toString(result70.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
@@ -55,6 +63,8 @@ public class QueryNumSpeedsOver100 {
             int totalSpeedRecords = Integer.parseInt(Bytes.toString(resultTotalRecords.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
 
             double avgSpeed = totalSpeed / totalSpeedRecords;
+            double percentOver50 = over50 / (double) totalSpeedRecords * 100;
+            double percentOver60 = over60 / (double) totalSpeedRecords * 100;
             double percentOver70 = over70 / (double) totalSpeedRecords * 100;
             double percentOver80 = over80 / (double) totalSpeedRecords * 100;
             double percentOver90 = over90 / (double) totalSpeedRecords * 100;
@@ -64,7 +74,11 @@ public class QueryNumSpeedsOver100 {
             double percentOver106 = over106 / (double) totalSpeedRecords * 100;
 
             String lineBreak = "<br>";
-            theResult += "<h1>Speeders on I205</h1>";
+            theResult += "<h1>Speeders on I-205</h1>";
+            theResult += lineBreak;
+            theResult += "Speeds over 50: " + over50 + "\tPercentage of total: " + round(percentOver50, 4) + "%";
+            theResult += lineBreak;
+            theResult += "Speeds over 60: " + over60 + "\tPercentage of total: " + round(percentOver60, 4) + "%";
             theResult += lineBreak;
             theResult += "Speeds over 70: " + over70 + "\tPercentage of total: " + round(percentOver70, 4) + "%";
             theResult += lineBreak;
