@@ -30,6 +30,18 @@ public class QueryRouteJohnsonCreekToColumbia {
         initRouteFindQuery();
         String theResult = "";
 
+        String rowStart = "<tr>";
+        String rowEnd = "</td>";
+
+        String lineBreak = "<br>";
+        theResult += "<h1>Route Finding: Johnson Creek NB to Columbia Blvd NB</h1>";
+        theResult += lineBreak;
+
+        theResult += "<table border=\"1\">";
+        theResult += rowStart;
+        theResult += "<td>Station ID</td>" + "<td>Location Text</td>";
+        theResult += rowEnd + rowStart;
+
         try
         {
             Result tableResult;
@@ -47,8 +59,11 @@ public class QueryRouteJohnsonCreekToColumbia {
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
-                    theResult += currentStation.getKey() + " " + currentStation.getValue() + "<br>";
-                    theResult += endingStation.getKey() + " " + endingStation.getValue();
+                    theResult += "<td>" + currentStation.getKey() + "</td>" +
+                                 "<td>" + currentStation.getValue() + "/td>" + "<br>";
+                    theResult += "<td>" + endingStation.getKey() + "</td>" +
+                                 "<td>" + endingStation.getValue() + "</td>";
+
                     return theResult;
 
                 }
@@ -59,7 +74,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 }
                 // add intermediate station result to theResult string
                 else {
-                    theResult += currentStation.getKey() + " " + currentStation.getValue() + "<br>";
+                    theResult += "<td>" + currentStation.getKey() + "</td>" +
+                                 "<td>" + currentStation.getValue() + "</td>" + "<br>";
                     currentStation = nextStation;
                 }
 
