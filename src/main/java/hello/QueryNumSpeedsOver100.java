@@ -73,27 +73,35 @@ public class QueryNumSpeedsOver100 {
             double percentOver104 = over104 / (double) totalSpeedRecords * 100;
             double percentOver106 = over106 / (double) totalSpeedRecords * 100;
 
+            String rowStart = "<tr>";
+            String rowEnd = "</td>";
+
             String lineBreak = "<br>";
             theResult += "<h1>Speeders on I-205</h1>";
             theResult += lineBreak;
-            theResult += "Speeds over 50: " + over50 + "\tPercentage of total: " + round(percentOver50, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 60: " + over60 + "\tPercentage of total: " + round(percentOver60, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 70: " + over70 + "\tPercentage of total: " + round(percentOver70, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 80: " + over80 + "\tPercentage of total: " + round(percentOver80, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 90: " + over90 + "\tPercentage of total: " + round(percentOver90, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 100: " + over100 + "\tPercentage of total: " + round(percentOver100, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 102: " + over102 + "\tPercentage of total: " + round(percentOver102, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 104: " + over104 + "\tPercentage of total: " + round(percentOver104, 4) + "%";
-            theResult += lineBreak;
-            theResult += "Speeds over 106: " + over106 + "\tPercentage of total: " + round(percentOver106, 4) + "%";
-            theResult += lineBreak;
+
+            theResult += "<table border=\"1\">";
+            theResult += rowStart;
+            theResult += "<td>Speed</td>" + "<td># greater than</td>" + "<td>percent of total</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>50<td/><td>" + over50 + "</td><td>" + round(percentOver50, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>60<td/><td> " + over60 + "</td><td>" + round(percentOver60, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>70<td/><td>" + over70 + "</td><td>" + round(percentOver70, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>80<td/><td>" + over80 + "</td><td>" + round(percentOver80, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>90<td/><td>" + over90 + "</td><td>" + round(percentOver90, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>100<td/><td>" + over100 + "</td><td>" + round(percentOver100, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>102<td/><td>" + over102 + "</td><td>" + round(percentOver102, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>104<td/><td>" + over104 + "</td><td>" + round(percentOver104, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>106<td/><td>" + over106 + "</td><td>" + round(percentOver106, 4) + "</td>";
+            theResult += rowEnd + "</table>";
             theResult += lineBreak;
             theResult += "Avg speed: " + avgSpeed + " Total speed records " + totalSpeedRecords;
 
