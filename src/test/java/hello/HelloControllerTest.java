@@ -56,7 +56,7 @@ public class HelloControllerTest {
 	public void getQuery4() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query4/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("1047 Johnson Cr NB<br>1117 Foster NB<br>1048 Powell to I-205 NB<br>1142 Division NB<br>1140 Glisan to I-205 NB<br>1140 Columbia to I-205 NB")));
+				.andExpect(content().string(equalTo("1046 Johnson Cr NB<br>1047 Johnson Cr NB<br>1117 Foster NB<br>1048 Powell to I-205 NB<br>1142 Division NB<br>1140 Columbia to I-205 NB")));
 	}
 	@Test
 	public void getQuery5() throws Exception {
