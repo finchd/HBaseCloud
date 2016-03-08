@@ -38,8 +38,8 @@ public class QueryUpdateStationIDLength {
             table.put(backp); // This command changes the value
 
 
-            return "Query 5: update the value of stationID: 1140 to have a length of 2.3\n" +
-                    "StationID has an OLD length value of: " + oldresult + "\n" +
+            return "Query 5: update the value of stationID: 1140 to have a length of 2.3 <br>" +
+                    "StationID has an OLD length value of: " + oldresult + "<br>" +
                     "StationID has a NEW length value value of " + newresult;
 
         } catch (Exception e) {
