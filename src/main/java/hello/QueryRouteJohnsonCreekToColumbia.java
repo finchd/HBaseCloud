@@ -39,7 +39,7 @@ public class QueryRouteJohnsonCreekToColumbia {
 
         theResult += "<table border=\"1\">";
         theResult += rowStart;
-        theResult += "<td>Station ID</td>" + "<td>Location Text</td>";
+        theResult += "<tr><td>Station ID</td>" + "<td>Location Text</td></tr>";
         theResult += rowEnd + rowStart;
 
         try
@@ -59,10 +59,10 @@ public class QueryRouteJohnsonCreekToColumbia {
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
-                    theResult += "<td>" + currentStation.getKey() + "</td>" +
-                                 "<td>" + currentStation.getValue() + "/td>" + "<br>";
-                    theResult += "<td>" + endingStation.getKey() + "</td>" +
-                                 "<td>" + endingStation.getValue() + "</td>";
+                    theResult += "<tr><td>" + currentStation.getKey() + "</td>" +
+                                 "<td>" + currentStation.getValue() + "</td></tr>";
+                    theResult += "<tr><td>" + endingStation.getKey() + "</td>" +
+                                 "<td>" + endingStation.getValue() + "</td></tr>";
 
                     return theResult;
 
@@ -74,8 +74,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 }
                 // add intermediate station result to theResult string
                 else {
-                    theResult += "<td>" + currentStation.getKey() + "</td>" +
-                                 "<td>" + currentStation.getValue() + "</td>" + "<br>";
+                    theResult += "<tr><td>" + currentStation.getKey() + "</td>" +
+                                 "<td>" + currentStation.getValue() + "</td></tr>";
                     currentStation = nextStation;
                 }
 
