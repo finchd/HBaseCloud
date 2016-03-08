@@ -58,7 +58,7 @@ public class HelloControllerIT {
 	@Test
 	public void getQuery4() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(base.toString() + "query4/", String.class);
-		assertThat(response.getBody(), equalTo("1047 Johnson Cr NB<br>1117 Foster NB<br>1048 Powell to I-205 NB<br>1142 Division NB<br>1140 Glisan to I-205 NB<br>1140 Columbia to I-205 NB"));
+		assertThat(response.getBody(), equalTo("1046 Johnson Cr NB<br>1047 Johnson Cr NB<br>1117 Foster NB<br>1048 Powell to I-205 NB<br>1142 Division NB<br>1140 Columbia to I-205 NB"));
 	}
 	@Test
 	public void getQuery5() throws Exception {
