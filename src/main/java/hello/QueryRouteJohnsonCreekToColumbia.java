@@ -59,11 +59,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
-                    theResult += "<tr><td>" + currentStation.getKey() + "</td>" +
-                                 "<td>" + currentStation.getValue() + "</td></tr>";
-                    theResult += "<tr><td>" + endingStation.getKey() + "</td>" +
-                                 "<td>" + endingStation.getValue() + "</td></tr>";
-
+                    theResult += "<tr><td>" + nextStation.getKey() + "</td>" +
+                                 "<td>" + nextStation.getValue() + "</td></tr>";
                     return theResult;
 
                 }
