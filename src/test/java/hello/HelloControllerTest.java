@@ -62,7 +62,7 @@ public class HelloControllerTest {
 	public void getQuery5() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query5/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("Query 5 result")));
+				.andExpect(content().string(equalTo("Old value was: 2.14 | and the new value is 2.3")));
 	}
 	@Test
 	public void getQuery6() throws Exception {

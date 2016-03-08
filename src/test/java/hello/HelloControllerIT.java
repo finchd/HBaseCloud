@@ -63,7 +63,7 @@ public class HelloControllerIT {
 	@Test
 	public void getQuery5() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(base.toString() + "query5/", String.class);
-		assertThat(response.getBody(), equalTo("Query 5 result"));
+		assertThat(response.getBody(), equalTo("Old value was: 2.14 | and the new value is 2.3"));
 	}
 	@Test
 	public void getQuery6() throws Exception {
