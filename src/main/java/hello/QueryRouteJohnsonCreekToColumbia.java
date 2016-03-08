@@ -74,8 +74,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 }
                 // add intermediate station result to theResult string
                 else {
-                    theResult += "<tr><td>" + currentStation.getKey() + "</td>" +
-                                 "<td>" + currentStation.getValue() + "</td></tr>";
+                    theResult += "<tr><td>" + nextStation.getKey() + "</td>" +
+                                 "<td>" + nextStation.getValue() + "</td></tr>";
                     currentStation = nextStation;
                 }
 
