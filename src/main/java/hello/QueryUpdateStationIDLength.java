@@ -28,8 +28,8 @@ public class QueryUpdateStationIDLength {
 
             // get the new result
             Get newget = new Get(Bytes.toBytes("1140"));
-            Result newtable = table.get(oldget);
-            String newresult = Bytes.toString(oldtable.getValue(Bytes.toBytes("freeway_stations"),
+            Result newtable = table.get(newget);
+            String newresult = Bytes.toString(newtable.getValue(Bytes.toBytes("freeway_stations"),
                     Bytes.toBytes("length")));
 
             // Put the old value back to how it was so we can do this again
