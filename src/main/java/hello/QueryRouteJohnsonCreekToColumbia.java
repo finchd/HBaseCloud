@@ -41,6 +41,7 @@ public class QueryRouteJohnsonCreekToColumbia {
         theResult += rowStart;
         theResult += "<tr><td>Station ID</td>" + "<td>Location Text</td></tr>";
         theResult += rowEnd + rowStart;
+        theResult += "<tr><td>" + currentStation.getKey() + "</td>";
 
         try
         {
@@ -54,13 +55,14 @@ public class QueryRouteJohnsonCreekToColumbia {
                     return theResult;
                 }
 
-                nextStation = getNextStationIdFromDownstream(Integer.parseInt(currentStation.getKey()));
+                nextStation = getNextStationFromDownstream(Integer.parseInt(currentStation.getKey()));
 
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
-                    theResult += "<tr><td>" + nextStation.getKey() + "</td>" +
-                                 "<td>" + nextStation.getValue() + "</td></tr>";
+                    theResult += "<td>" + nextStation.getValue() + "</td></tr>";
+                    theResult += "<tr><td>" + endingStation.getKey() + "</td>" +
+                            "<td>" + endingStation.getValue() + "</td></tr>";
                     return theResult;
 
                 }
@@ -71,8 +73,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 }
                 // add intermediate station result to theResult string
                 else {
-                    theResult += "<tr><td>" + nextStation.getKey() + "</td>" +
-                                 "<td>" + nextStation.getValue() + "</td></tr>";
+                    theResult += "<td>" + nextStation.getValue() + "</td></tr>" +
+                                 "<tr><td>" + nextStation.getKey() + "</td>";
                     currentStation = nextStation;
                 }
 
@@ -115,10 +117,10 @@ public class QueryRouteJohnsonCreekToColumbia {
         // Setup the query:
         // Get the <stationid, locationtext> pairs corresponding to our starting and ending
         // locationtext, and the first downstream after the startingStation
-        Pair<String, String> startingStation = getStationIdFromLocationText(startingLocationText);
+        Pair<String, String> startingStation = getStationFromLocationText(startingLocationText);
         currentStation = startingStation;
-        endingStation = getStationIdFromLocationText(endingLocationText);
-        nextStation = getNextStationIdFromDownstream(Integer.parseInt(startingStation.getKey()));
+        endingStation = getStationFromLocationText(endingLocationText);
+        nextStation = getNextStationFromDownstream(Integer.parseInt(startingStation.getKey()));
     }
 
     /**
@@ -148,7 +150,7 @@ public class QueryRouteJohnsonCreekToColumbia {
      * @param locationtext the locationtext to match
      * @return the corresponding (stationid, locationtext) pair
      */
-    public Pair<String,String> getStationIdFromLocationText(String locationtext) {
+    public Pair<String,String> getStationFromLocationText(String locationtext) {
         Result result;
         String locationtextRead;
         String downstreamRead;
@@ -199,7 +201,7 @@ public class QueryRouteJohnsonCreekToColumbia {
      * @param downstream the downstream stationid
      * @return The (stationid, locationtext) pair corresponding to the downstream stationid
      */
-    public Pair<String,String> getNextStationIdFromDownstream(int downstream) {
+    public Pair<String,String> getNextStationFromDownstream(int downstream) {
         Result result = null;
         String locationtextRead = null;
         String downstreamRead = null;
