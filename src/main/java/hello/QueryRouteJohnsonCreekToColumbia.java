@@ -223,7 +223,7 @@ public class QueryRouteJohnsonCreekToColumbia {
         }
 
         if (result != null) {
-            // Get the next downstream's locationtext
+            // Get the next downstream'ss stationid
             byte[] stationidByte = result.getValue(Bytes.toBytes("freeway_stations"), Bytes.toBytes("stationid"));
             stationidRead = Bytes.toString(stationidByte);
             // Get the next downstream's locationtext
