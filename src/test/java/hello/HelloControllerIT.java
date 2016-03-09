@@ -55,11 +55,11 @@ public class HelloControllerIT {
 		ResponseEntity<String> response = template.getForEntity(base.toString() + "query3/", String.class);
 		assertThat(response.getBody(), equalTo("Query 3 result"));
 	}
-	//@Test
-	//public void getQuery4() throws Exception {
-	//	ResponseEntity<String> response = template.getForEntity(base.toString() + "query4/", String.class);
-	//	assertThat(response.getBody(), equalTo("<h1>Route Finding: Johnson Creek NB to Columbia Blvd NB</h1><br><table border=\"1\"><tr><tr><td>Station ID</td><td>Location Text</td></tr></td><tr><tr><td>1046</td><td>Johnson Cr NB</td></tr><tr><td>1046</td><td>Johnson Cr NB</td></tr><tr><td>1047</td><td>Foster NB</td></tr><tr><td>1117</td><td>Powell to I-205 NB</td></tr><tr><td>1048</td><td>Division NB</td></tr><tr><td>1140</td><td>Columbia to I-205 NB</td></tr>"));
-	//}
+	@Test
+	public void getQuery4() throws Exception {
+		ResponseEntity<String> response = template.getForEntity(base.toString() + "query4/", String.class);
+		assertThat(response.getBody(), equalTo("<h1>Route Finding: Johnson Creek NB to Columbia Blvd NB</h1><br><table border=\"1\"><tr><tr><td>Station ID</td><td>Location Text</td></tr></td><tr><tr><td>1046</td><td>Johnson Cr NB</td></tr><tr><td>1046</td><td>Johnson Cr NB</td></tr><tr><td>1047</td><td>Foster NB</td></tr><tr><td>1117</td><td>Powell to I-205 NB</td></tr><tr><td>1048</td><td>Division NB</td></tr><tr><td>1140</td><td>Columbia to I-205 NB</td></tr>"));
+	}
 	@Test
 	public void getQuery5() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(base.toString() + "query5/", String.class);
