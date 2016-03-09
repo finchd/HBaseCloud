@@ -56,7 +56,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                     return theResult;
                 }
 
-                nextStation = getNextStationFromDownstream(Integer.parseInt(currentStation.getKey()));
+                nextStation = getNextStationFromDownstream(Integer.parseInt(currentStation.getValue2()));
 
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
