@@ -78,7 +78,7 @@ public class QueryRouteJohnsonCreekToColumbia {
                     currentStation = nextStation;
                 }
 
-            } while (!tableResult.isEmpty() && Integer.parseInt(nextStation.getKey()) != 0);
+            } while (!tableResult.isEmpty() && Integer.parseInt(nextStation.getValue2()) != 0);
         }
         catch( Exception e )
         {
