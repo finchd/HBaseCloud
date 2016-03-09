@@ -13,9 +13,9 @@ public class QueryRouteJohnsonCreekToColumbia {
     private final static String endingLocationText = "Columbia to I-205 NB";
     private final static int lowestNorthBoundStationId = 1045;
     private HTable table;
-    private Pair<String, String> endingStation;
-    private Pair<String, String> nextStation;
-    private Pair<String, String> currentStation;
+    private Record<String, String, String> endingStation;
+    private Record<String, String, String> nextStation;
+    private Record<String, String, String> currentStation;
     /**
      * The main routine for this query.
      * Loop on the downstream stationids until we hit our stopping conditions:
@@ -42,6 +42,7 @@ public class QueryRouteJohnsonCreekToColumbia {
         theResult += "<tr><td>Station ID</td>" + "<td>Location Text</td></tr>";
         theResult += rowEnd + rowStart;
         theResult += "<tr><td>" + currentStation.getKey() + "</td>";
+        theResult += "<td>" + currentStation.getValue1() + "</td></tr>";
 
         try
         {
@@ -60,9 +61,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 // matches endingStation.  return result
                 if (nextStation.getKey().equals(endingStation.getKey())) {
 
-                    theResult += "<td>" + nextStation.getValue() + "</td></tr>";
-                    theResult += "<tr><td>" + endingStation.getKey() + "</td>" +
-                            "<td>" + endingStation.getValue() + "</td></tr>";
+                    theResult += "<tr><td>" + nextStation.getKey() + "</td>" +
+                            "<td>" + nextStation.getValue1() + "</td></tr>";
                     return theResult;
 
                 }
@@ -73,8 +73,8 @@ public class QueryRouteJohnsonCreekToColumbia {
                 }
                 // add intermediate station result to theResult string
                 else {
-                    theResult += "<td>" + currentStation.getValue() + "</td></tr>" +
-                                 "<tr><td>" + currentStation.getKey() + "</td>";
+                    theResult += "<tr><td>" + currentStation.getKey() + "</td>" +
+                                 "<td>" + currentStation.getValue1() + "</td></tr>";
                     currentStation = nextStation;
                 }
 
@@ -117,45 +117,51 @@ public class QueryRouteJohnsonCreekToColumbia {
         // Setup the query:
         // Get the <stationid, locationtext> pairs corresponding to our starting and ending
         // locationtext, and the first downstream after the startingStation
-        Pair<String, String> startingStation = getStationFromLocationText(startingLocationText);
+        Record<String, String, String> startingStation = getStationFromLocationText(startingLocationText);
         currentStation = startingStation;
         endingStation = getStationFromLocationText(endingLocationText);
-        nextStation = getNextStationFromDownstream(Integer.parseInt(startingStation.getKey()));
+        nextStation = getNextStationFromDownstream(Integer.parseInt(startingStation.getValue2()));
     }
 
     /**
-     * Generic Pair class, to hold our stationid, locationtext pairs
+     * Generic Record class, to hold our stationid, locationtext, downstream records
      * @param <K> The stationid
-     * @param <V> The locationtext
+     * @param <V1> The locationtext
+     * @param <V2> The downstream
      */
-    class Pair<K, V> {
+    class Record<K, V1, V2> {
         private K k;
-        private V v;
+        private V1 v1;
+        private V2 v2;
 
-        public Pair(K k, V v) {
+        public Record(K k, V1 v1, V2 v2) {
             this.k = k;
-            this.v = v;
+            this.v1 = v1;
+            this.v2 = v2;
         }
         public K getKey() {
             return k;
         }
-        public V getValue() {
-            return v;
+        public V1 getValue1() {
+            return v1;
+        }
+        public V2 getValue2() {
+            return v2;
         }
     }
 
 
     /**
-     * Get the station pair that corresponds to the matching the locationtext
+     * Get the station record that corresponds to the matching locationtext
      * @param locationtext the locationtext to match
-     * @return the corresponding (stationid, locationtext) pair
+     * @return the corresponding (stationid, locationtext, downstream) record
      */
-    public Pair<String,String> getStationFromLocationText(String locationtext) {
+    public Record<String,String, String> getStationFromLocationText(String locationtext) {
         Result result;
         String locationtextRead;
         String downstreamRead;
         String stationidRead;
-        Pair<String, String> station;
+        Record<String, String, String> station;
 
         int stationId = lowestNorthBoundStationId;
         try {
@@ -180,7 +186,7 @@ public class QueryRouteJohnsonCreekToColumbia {
 
                     // If matching locationTextRead found, return the stationidRead
                     if (locationtext.matches(locationtextRead)) {
-                        station = new Pair<>(stationidRead, locationtextRead);
+                        station = new Record<>(stationidRead, locationtextRead, downstreamRead);
                         return station;
                     }
 
@@ -193,18 +199,20 @@ public class QueryRouteJohnsonCreekToColumbia {
             e.printStackTrace();
         }
 
-        return new Pair<>(null, null);
+        return new Record<>(null, null, null);
     }
 
     /**
-     * Get the next downstream station id
+     * Get the next downstream station record
      * @param downstream the downstream stationid
-     * @return The (stationid, locationtext) pair corresponding to the downstream stationid
+     * @return The (stationid, locationtext, downstream) record corresponding to the downstream
+     * stationid
      */
-    public Pair<String,String> getNextStationFromDownstream(int downstream) {
+    public Record<String,String, String> getNextStationFromDownstream(int downstream) {
         Result result = null;
         String locationtextRead = null;
         String downstreamRead = null;
+        String stationidRead = null;
 
         try {
             Get theGet = new Get(Bytes.toBytes(String.valueOf(downstream)));
@@ -216,6 +224,9 @@ public class QueryRouteJohnsonCreekToColumbia {
 
         if (result != null) {
             // Get the next downstream's locationtext
+            byte[] stationidByte = result.getValue(Bytes.toBytes("freeway_stations"), Bytes.toBytes("stationid"));
+            stationidRead = Bytes.toString(stationidByte);
+            // Get the next downstream's locationtext
             byte[] locationtextByte = result.getValue(Bytes.toBytes("freeway_stations"), Bytes.toBytes("locationtext"));
             locationtextRead = Bytes.toString(locationtextByte);
             // Get the next downstream
@@ -223,7 +234,7 @@ public class QueryRouteJohnsonCreekToColumbia {
             downstreamRead = Bytes.toString(downstreamByte);
         }
 
-        return new Pair<>(downstreamRead, locationtextRead);
+        return new Record<>(stationidRead, locationtextRead, downstreamRead);
     }
 
 
