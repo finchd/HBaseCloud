@@ -54,9 +54,41 @@ public class QueryNumSpeedsOver100 {
             Result result106 = table.get(theGet106);
             int over106 = Integer.parseInt(Bytes.toString(result106.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
 
-            Get theGetTotalSpeed = new Get(Bytes.toBytes("Total Speed:"));
-            Result resultTotalSpeed = table.get(theGetTotalSpeed);
-            int totalSpeed = Integer.parseInt(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            Get theGet108 = new Get(Bytes.toBytes("Speeds over 108:"));
+            Result result108 = table.get(theGet108);
+            int over108 = Integer.parseInt(Bytes.toString(result108.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            Get theGet110 = new Get(Bytes.toBytes("Speeds over 110:"));
+            Result result110 = table.get(theGet110);
+            int over110 = Integer.parseInt(Bytes.toString(result110.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+
+            Get theGet112= new Get(Bytes.toBytes("Speeds over 112:"));
+            Result result112 = table.get(theGet112);
+            int over112 = Integer.parseInt(Bytes.toString(result112.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            Get theGet114 = new Get(Bytes.toBytes("Speeds over 114:"));
+            Result result114 = table.get(theGet114);
+            int over114 = Integer.parseInt(Bytes.toString(result114.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            Get theGet116 = new Get(Bytes.toBytes("Speeds over 116:"));
+            Result result116 = table.get(theGet116);
+            int over116 = Integer.parseInt(Bytes.toString(result116.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            Get theGet118 = new Get(Bytes.toBytes("Speeds over 118:"));
+            Result result118 = table.get(theGet118);
+            int over118 = Integer.parseInt(Bytes.toString(result118.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            //Get theGetTotalSpeed = new Get(Bytes.toBytes("Total Speed:"));
+            //Result resultTotalSpeed = table.get(theGetTotalSpeed);
+            //int totalSpeed = Integer.parseInt(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+
+            double totalSpeed = 0;
+            for (int i = 0; i <= 5; i++){
+                Get theGetTotalSpeed = new Get(Bytes.toBytes("Total Speed "+ i + ":"));
+                Result resultTotalSpeed = table.get(theGetTotalSpeed);
+                totalSpeed += Integer.parseInt(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
+            }
 
             Get theGetTotalRecords = new Get(Bytes.toBytes("Total speed records"));
             Result resultTotalRecords = table.get(theGetTotalRecords);
@@ -72,6 +104,12 @@ public class QueryNumSpeedsOver100 {
             double percentOver102 = over102 / (double) totalSpeedRecords * 100;
             double percentOver104 = over104 / (double) totalSpeedRecords * 100;
             double percentOver106 = over106 / (double) totalSpeedRecords * 100;
+            double percentOver108 = over108 / (double) totalSpeedRecords * 100;
+            double percentOver110 = over110 / (double) totalSpeedRecords * 100;
+            double percentOver112 = over112 / (double) totalSpeedRecords * 100;
+            double percentOver114 = over114 / (double) totalSpeedRecords * 100;
+            double percentOver116 = over116 / (double) totalSpeedRecords * 100;
+            double percentOver118 = over118 / (double) totalSpeedRecords * 100;
 
             String rowStart = "<tr>";
             String rowEnd = "</td>";
@@ -101,6 +139,18 @@ public class QueryNumSpeedsOver100 {
             theResult += "<td>104</td><td>" + over104 + "</td><td>" + round(percentOver104, 4) + "</td>";
             theResult += rowEnd + rowStart;
             theResult += "<td>106</td><td>" + over106 + "</td><td>" + round(percentOver106, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>108</td><td>" + over108 + "</td><td>" + round(percentOver108, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>110</td><td>" + over110 + "</td><td>" + round(percentOver110, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>112</td><td>" + over112 + "</td><td>" + round(percentOver112, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>114</td><td>" + over114 + "</td><td>" + round(percentOver114, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>116</td><td>" + over116 + "</td><td>" + round(percentOver116, 4) + "</td>";
+            theResult += rowEnd + rowStart;
+            theResult += "<td>118</td><td>" + over118 + "</td><td>" + round(percentOver118, 4) + "</td>";
             theResult += rowEnd + "</table>";
             theResult += lineBreak;
             theResult += "Avg speed: " + avgSpeed + " Total speed records " + totalSpeedRecords;
