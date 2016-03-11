@@ -84,7 +84,7 @@ public class QueryNumSpeedsOver100 {
             //int totalSpeed = Integer.parseInt(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
 
             long totalSpeed = 0;
-            for (int i = 0; i <= 5; i++){
+            for (int i = 0; i < 5; i++){
                 Get theGetTotalSpeed = new Get(Bytes.toBytes("Total Speed "+ i + ":"));
                 Result resultTotalSpeed = table.get(theGetTotalSpeed);
                 totalSpeed += Long.parseLong(Bytes.toString(resultTotalSpeed.getValue(Bytes.toBytes("results"), Bytes.toBytes("count"))));
