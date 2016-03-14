@@ -29,6 +29,7 @@ public class HelloControllerTest {
 		mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
 	}
 
+	@Ignore
 	@Test
 	public void getHello() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
