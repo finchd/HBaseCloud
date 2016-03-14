@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -46,6 +47,7 @@ public class HelloControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().string(equalTo("<h1>Total Volume for Foster NB on Sept 21, 2011</h1><br><table border=\"1\"><tr><td>Total Volume</td><td>59124</td></table>")));
 	}
+	@Ignore
 	@Test
 	public void getQuery3() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query3/").accept(MediaType.APPLICATION_JSON))
