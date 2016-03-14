@@ -12,9 +12,21 @@ public class HelloController {
     QueryUpdateStationIDLength query5 = new QueryUpdateStationIDLength();
     Query6 query6 = new Query6();
 
+    String SpringBootPage() {
+        String ret = "<h1>HBase Queries</h1>";
+        ret += "<ul>";
+        ret += "<li>Query 1: <a href =\"/query1/\"> Number of speeds over 100</a></li>";
+        ret += "<li>Query 2: <a href =\"/query2/\"> Total volume for Foster NB</a></li>";
+        ret += "<li>Query 3: <a href =\"/query3/\"> Peak Travel Time Foster NB</a></li>";
+        ret += "<li>Query 4: <a href =\"/query4/\"> Route from Johnson Creek to Columbia</a></li>";
+        ret += "<li>Query 5: <a href =\"/query5/\"> Update Station ID Length</a></li>";
+        ret += "</ul>";
+        return ret;
+    }
+
     @RequestMapping("/")
     public String index() {
-        return "Hello World w/Spring Boot";
+        return SpringBootPage();
     }
     @RequestMapping("/query1/")
     public String query1() {
@@ -40,5 +52,6 @@ public class HelloController {
     public String query6() {
         return query6.getResult();
     }
-    
+
+
 }
