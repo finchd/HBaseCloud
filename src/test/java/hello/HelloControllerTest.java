@@ -62,7 +62,8 @@ public class HelloControllerTest {
 	public void getQuery5() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query5/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("Query 5 result")));
+				.andExpect(content().string(equalTo("Query 5: update the value of stationID: 1140 to have a length of 2.3 <br>StationID has an OLD length value of: 2.14<br>StationID has a NEW length value value of 2.3")));
+
 	}
 	@Test
 	public void getQuery6() throws Exception {

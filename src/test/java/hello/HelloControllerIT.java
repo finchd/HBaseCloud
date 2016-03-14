@@ -65,7 +65,7 @@ public class HelloControllerIT {
 	@Test
 	public void getQuery5() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(base.toString() + "query5/", String.class);
-		assertThat(response.getBody(), equalTo("Query 5 result"));
+		assertThat(response.getBody(), equalTo("Query 5: update the value of stationID: 1140 to have a length of 2.3 <br>StationID has an OLD length value of: 2.14<br>StationID has a NEW length value value of 2.3"));
 	}
 	@Test
 	public void getQuery6() throws Exception {
