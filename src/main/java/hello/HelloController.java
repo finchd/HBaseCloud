@@ -19,7 +19,7 @@ public class HelloController {
         ret += "<li>Query 2: <a href =\"/query2/\"> Total volume for Foster NB</a></li>";
         ret += "<li>Query 3: <a href =\"/query3/\"> Peak Travel Time Foster NB</a></li>";
         ret += "<li>Query 4: <a href =\"/query4/\"> Route from Johnson Creek to Columbia</a></li>";
-        ret += "<li>Query 5: <a href =\"/query 5/\"> Update Station ID Length</a></li>";
+        ret += "<li>Query 5: <a href =\"/query5/\"> Update Station ID Length</a></li>";
         ret += "</ul>";
         return ret;
     }
