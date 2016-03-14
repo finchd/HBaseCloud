@@ -23,7 +23,7 @@ public class QueryTotalVolumeFosterNB {
 
             theResult += "<h1>Total Volume for Foster NB on Sept 21, 2011</h1>";
             theResult += "<br>";
-            theResult +="<p>Total Volume: " + volume + "</p>";
+            theResult +="<table border=\"1\"><tr><td>Total Volume</td><td>" + volume + "</td></table>";
 
 
 

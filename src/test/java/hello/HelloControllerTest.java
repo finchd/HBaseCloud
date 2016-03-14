@@ -44,7 +44,7 @@ public class HelloControllerTest {
 	public void getQuery2() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/query2/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("<h1>Total Volume for Foster NB on Sept 21, 2011</h1><br><p>Total Volume: 59124</p>")));
+				.andExpect(content().string(equalTo("<h1>Total Volume for Foster NB on Sept 21, 2011</h1><br><table border=\"1\"><tr><td>Total Volume</td><td>59124</td></table>")));
 	}
 	@Test
 	public void getQuery3() throws Exception {
