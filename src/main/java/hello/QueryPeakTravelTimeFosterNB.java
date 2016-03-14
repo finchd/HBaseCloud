@@ -14,9 +14,7 @@ public class QueryPeakTravelTimeFosterNB {
     public String getResult(){
         try {
             Configuration conf = HBaseConfiguration.create();
-            HTable table = new HTable(conf, "freeway_stations");
-
-
+            HTable table = new HTable(conf, "results");
 
             Get morningGet = new Get(Bytes.toBytes("Morning Peak Speed:"));
             Result morningResult = table.get(morningGet);
