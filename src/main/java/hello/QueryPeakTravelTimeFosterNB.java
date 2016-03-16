@@ -41,8 +41,14 @@ public class QueryPeakTravelTimeFosterNB {
             double travelTimeFosterMorning = 1.6*morningTravelSecondsPerMile;
             double travelTimeFosterRush = 1.6*rushTravelSecondsPerMile;
 
-            return "Morning rush time for foster north bound is: " + (int)travelTimeFosterMorning + "<br>" +
-                    "Rush hour time for foster north bound is: " + (int)travelTimeFosterRush;
+            String rowStart = "<tr>";
+            String rowEnd = "</td>";
+            String lineBreak = "<br>";
+
+            return "<h1>Peak Travel time on I-205 Foster NB</h1>" + lineBreak + "<table border=\"1\">" +
+                    rowStart + "<td>" + "Time" + "</td><td>" + "Travel time in Seconds" + "</td>" + rowEnd +
+                    rowStart + "<td>7-9am</td><td>" + (int)travelTimeFosterMorning + "</td>" + rowEnd +
+                    rowStart + "<td>4-6pm</td><td>" + (int)travelTimeFosterRush + "</td>" + rowEnd;
 
         } catch (Exception e) {
             e.printStackTrace();
