@@ -115,7 +115,7 @@ public class QueryNumSpeedsOver100 {
             String rowEnd = "</td>";
 
             String lineBreak = "<br>";
-            theResult += "<h1>Speeders on I-205</h1>";
+            theResult += "<h1>Speeders on I-205 during 2015 (1 year)</h1>";
             theResult += lineBreak;
 
             theResult += "<table border=\"1\">";
